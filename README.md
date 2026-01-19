@@ -1,6 +1,6 @@
 # Rust Skill Creator
 
-A Claude Code skill that generates Rust-based skills for Claude. Create HTTP API clients, CLI tools, system utilities, or any task requiring compiled performance.
+A skill that generates Rust-based skills for Agent. Create HTTP API clients, CLI tools, system utilities, or any task requiring compiled performance.
 
 ## Features
 
@@ -95,7 +95,10 @@ Each generated skill has this structure:
         └── main.rs       # Async main entry point
 ```
 
-Default output location: `~/.claude/skills/<skill-name>/`
+Default output location for different agent:
+Claude Code: `~/.claude/skills/<skill-name>/`
+Codex: `~/.codex/skills/<skill-name>/`
+OpenCode: `~/.config/opencode/skills/<skill-name>/`
 
 ## Example
 
@@ -109,9 +112,8 @@ User request: "Create a skill to query weather for a location"
 
 **Usage:**
 ```bash
-cd ~/.claude/skills/weather-query
-scripts/build.sh
-scripts/run.sh "Tokyo"
+<skill-dir>/scripts/build.sh
+<skill-dir>/scripts/run.sh "Tokyo"
 ```
 
 ## Requirements

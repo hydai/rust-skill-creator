@@ -5,7 +5,7 @@ description: Generate Rust-based skills that compile and run Rust applications. 
 
 # Rust Skill Creator
 
-Generate skills that contain Rust source code with build and run scripts. The generated skills use Claude for orchestration while Rust handles the core logic.
+Generate skills that contain Rust source code with build and run scripts. The generated skills use Agent for orchestration while Rust handles the core logic.
 
 ## Workflow
 
@@ -16,7 +16,7 @@ Follow these phases in order:
 Run the requirements gathering script to collect user needs:
 
 ```bash
-scripts/gather_requirements.py --output /tmp/requirements.json
+<skill-dir>/scripts/gather_requirements.py --output /tmp/requirements.json
 ```
 
 The script collects:
@@ -32,7 +32,7 @@ The script collects:
 Create a specification document from the requirements:
 
 ```bash
-scripts/generate_spec.py --requirements /tmp/requirements.json --output /tmp/SPEC.md
+<skill-dir>/scripts/generate_spec.py --requirements /tmp/requirements.json --output /tmp/SPEC.md
 ```
 
 The SPEC.md contains:
@@ -55,10 +55,13 @@ Do not proceed to Phase 4 until the user explicitly approves.
 ### Phase 4: Create Skill
 
 Generate the complete skill from the approved SPEC:
-
 ```bash
-scripts/create_skill.py --spec /tmp/SPEC.md --output ~/.claude/skills
+<skill-dir>/scripts/create_skill.py --spec /tmp/SPEC.md --output ~/.claude/skills
 ```
+Replace output path for other agents:
+Claude Code: `~/.claude/skills`
+Codex: `~/.codex/skills`
+OpenCode: `~/.config/opencode/skills`
 
 This creates:
 - SKILL.md with proper frontmatter
@@ -75,9 +78,19 @@ The create_skill.py script automatically:
 3. Attempts auto-fixes (up to 3 attempts)
 4. Reports success or remaining errors
 
+### Phase 6: Cleanup
+
+Remove temporary files:
+```bash
+rm /tmp/requirements.json /tmp/SPEC.md
+```
+
 ## Output Location
 
-Default: `~/.claude/skills/<skill-name>/`
+Default output location for different agent:
+Claude Code: `~/.claude/skills/<skill-name>/`
+Codex: `~/.codex/skills/<skill-name>/`
+OpenCode: `~/.config/opencode/skills/<skill-name>/`
 
 Override with `--output` flag in create_skill.py.
 
@@ -127,7 +140,7 @@ User request: "I want a skill to query weather for a given location"
 
 3. **User approves** the specification
 
-4. **Skill created** at `~/.claude/skills/weather-query/`:
+4. **Skill created** at `~/<agent-root>/skills/weather-query/`:
    - main.rs uses reqwest to call the weather API
    - Cargo.toml includes reqwest, serde, tokio
    - build.sh compiles the binary
@@ -135,7 +148,7 @@ User request: "I want a skill to query weather for a given location"
 
 5. **Usage:**
    ```bash
-   cd ~/.claude/skills/weather-query
+   cd ~/<agent-root>/skills/weather-query
    scripts/build.sh
    scripts/run.sh "Tokyo"
    ```
