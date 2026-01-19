@@ -14,7 +14,7 @@ description: {description}
 Compile the Rust application:
 
 ```bash
-scripts/build.sh
+<skill-dir>/scripts/build.sh
 ```
 
 ### Run
@@ -22,7 +22,7 @@ scripts/build.sh
 Execute with arguments:
 
 ```bash
-scripts/run.sh {usage_args}
+<skill-dir>/scripts/run.sh {usage_args}
 ```
 
 ## Input Parameters

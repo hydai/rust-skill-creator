@@ -5,7 +5,7 @@ Requirements Gatherer - Collect user requirements for Rust skill creation.
 Usage:
     gather_requirements.py --output <requirements.json>
 
-This script is designed to be read by Claude, who will use the structure
+This script is designed to be read by agent, who will use the structure
 to interactively gather requirements from the user and save them to JSON.
 """
 
@@ -182,10 +182,10 @@ def save_requirements(req: Requirements, output_path: str) -> bool:
 
 
 # ============================================================================
-# GATHERING INSTRUCTIONS FOR CLAUDE
+# GATHERING INSTRUCTIONS FOR AGENT
 # ============================================================================
 #
-# When this script is used, Claude should gather the following information
+# When this script is used, agent should gather the following information
 # from the user through interactive conversation:
 #
 # 1. BASIC INFO
@@ -241,7 +241,7 @@ def main():
         print("Usage: gather_requirements.py --output <requirements.json>")
         print()
         print("This script defines the structure for gathering requirements.")
-        print("Claude will read this script and use the defined data structures")
+        print("Agent will read this script and use the defined data structures")
         print("to interactively collect requirements from the user.")
         print()
         print("Required information:")
@@ -257,7 +257,7 @@ def main():
     output_path = sys.argv[2]
     print(f"Output will be saved to: {output_path}")
     print()
-    print("Claude should now gather requirements interactively and call")
+    print("Agent should now gather requirements interactively and call")
     print("save_requirements() with the collected data.")
 
 
